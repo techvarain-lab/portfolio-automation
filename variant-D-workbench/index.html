@@ -171,10 +171,10 @@ button{font:inherit}
 .funnel-sections{display:grid;gap:0}
 .funnel-sections img{width:100%;height:auto;display:block;border-bottom:1px solid var(--line)}
 .funnel-sections img:last-child{border:0}
-.lightbox{position:fixed;inset:0;background:rgba(18,17,16,.88);backdrop-filter:blur(8px);z-index:80;display:none;overflow:auto;padding:24px}
+.lightbox{position:fixed;inset:0;background:rgba(18,17,16,.88);backdrop-filter:blur(8px);z-index:80;display:none;overflow:auto;padding:32px 24px 24px}
 .lightbox.open{display:grid;place-items:start center}
-.lightbox img{max-width:min(1280px,96vw);height:auto;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:white}
-.lightbox-bar{position:sticky;top:12px;z-index:81;display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.lightbox img{max-width:min(1280px,96vw);height:auto;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:white;margin-top:4px}
+.lightbox-bar{position:sticky;top:12px;z-index:81;display:flex;gap:8px;justify-content:center;margin-bottom:20px;padding-top:4px}
 .lightbox-bar button{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.14);color:white;font-family:'Fragment Mono',monospace;font-size:11px;cursor:pointer;backdrop-filter:blur(6px);transition:border-color .15s, background .15s}
 .lightbox-bar button:hover{border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.22)}
 .preview-body h3{font-family:'Instrument Serif',serif;font-size:20px;line-height:1.05;margin:0 0 6px;font-weight:400;letter-spacing:-.02em}

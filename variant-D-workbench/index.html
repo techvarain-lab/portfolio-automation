@@ -243,7 +243,7 @@ button{font:inherit}
   <div class="nav-inner">
     <a class="brand" href="#top"><span class="mark">RD</span> Rainier <em>D.</em></a>
     <div class="nav-links">
-      <a href="#work" class="active">Work — 16</a>
+      <a href="#work" class="active">Work — 17</a>
       <a href="#bench">Bench</a>
       <a href="#contact">Contact</a>
     </div>
@@ -305,7 +305,7 @@ button{font:inherit}
         </svg>
       </div>
       <div class="stat2">
-        <div><b>16</b><span>Builds</span></div>
+        <div><b>17</b><span>Builds</span></div>
         <div><b>2</b><span>Families</span></div>
         <div><b>24h</b><span>Reply</span></div>
       </div>
@@ -328,11 +328,11 @@ button{font:inherit}
 </section>
 
 <section class="section" id="work">
-  <div class="head"><div><div class="eyebrow">Bench — 16 builds, 2 families (as you grouped)</div><h2 class="h2">Selected <i>work</i></h2></div><p class="desc">Hover a row → preview locks. Click → full routing. Filter by family or press <span class="kbd">⌘ K</span> style.</p></div>
+  <div class="head"><div><div class="eyebrow">Bench — 17 builds, 2 families (as you grouped)</div><h2 class="h2">Selected <i>work</i></h2></div><p class="desc">Hover a row → preview locks. Click → full routing. Filter by family or press <span class="kbd">⌘ K</span> style.</p></div>
   <div class="filters">
-    <button class="filter active" data-filter="all">All <span class="chip">16</span></button>
+    <button class="filter active" data-filter="all">All <span class="chip">17</span></button>
     <button class="filter" data-filter="automation">Automation Builds <span class="chip">10</span></button>
-    <button class="filter" data-filter="funnel">Funnel Builds <span class="chip">6</span></button>
+    <button class="filter" data-filter="funnel">Funnel Builds <span class="chip">7</span></button>
     <span class="kbd" style="margin-left:auto">Hover to preview · Click to open</span>
   </div>
   <div class="workbench">
@@ -408,6 +408,7 @@ const projects=[
   {n:"14",cat:"automation",title:"AI Customer Support Agent",desc:"Conversational AI trained on docs to handle inbound 24/7.",img:"",stack:["OpenAI","GHL","Vector DB"],bullets:["Trained on docs","Vector DB retrieval","GHL inbox"],letter:"AI"},
   {n:"15",cat:"automation",title:"AI Content Generator",desc:"Prompt chains generating SEO blog + social copy at scale.",img:"",stack:["GPT-4","Prompt Engineering"],bullets:["SEO prompt chains","Blog + social variants","Consistent voice"],letter:"CG"},
   {n:"16",cat:"automation",title:"Voice AI Appointment Booker",desc:"Inbound voice agent qualifying leads and booking calendar.",img:"",stack:["Vapi","Twilio","n8n"],bullets:["Vapi voice agent","Twilio telephony","n8n calendar"],letter:"VA"},
+  {n:"17",cat:"funnel",title:"Legal Consultation Intake & Nurture System — Immigration & Family Law",desc:"GHL-only 4-step funnel + 9-workflow tag-gated nurture loop where booking and nurture actively suppress each other — no double-messaging, no-shows recycled.",img:"assets/funnel/legal/thumb.webp",full:"assets/funnel/legal/full.webp",sections:["assets/funnel/legal/sec01.webp","assets/funnel/legal/sec02.webp","assets/funnel/legal/sec03.webp","assets/funnel/legal/sec04.webp","assets/funnel/legal/sec05.webp"],stack:["GoHighLevel","GHL Workflows","Custom HTML/CSS/JS"],bullets:["4-step funnel: Landing → Intake → Calendar → Confirmation (vanilla JS, no deps)","Tag taxonomy 14+ tags + 9 workflows with suppression gates + staff alerts","Nurture vs booking never conflict — provably one state at a time"],niche:"Immigration & Family Law Solo Practice",problem:"Solo/small law firms lose leads two different ways: cold inquiries that never convert into a booked consultation, and booked consultations that no-show or cancel without rebooking. Most funnel builds solve one side — a booking page or a nurture sequence — but treat them as separate systems where booking and nurture run blind to each other.",solution:"A 4-step GHL funnel (Landing → Intake Form → Calendar → Confirmation) feeding a 9-workflow automation backend built entirely on tag-based gating: cold leads nurtured 14-day drip; booked leads instantly pulled out of nurture; no-shows/cancels recycled into shortened nurture; every outcome (booked/completed/no-show/cancelled) triggers staff alert — single-platform, defensively gated.",build:["Tag taxonomy (built first): case-type-*, lead-source-*, consult-booked/completed/noshow/rescheduled, nurture-active/recycled/day3/7/14/exhausted, re-engage-sent","Funnel: Custom HTML/CSS/JS over GHL native form+calendar — hero, pain, how-it-works, credibility, FAQ accordion, UTM capture on hidden fields (data-q) + cross-page CTA href rewrite","9 Workflows: 1 New Inquiry→Nurture (suppression gate) · 2 Nurture Drip 0/3/7/14 · 2b Recycled Nurture · 3 Booking Confirmation & Nurture Cancel · 4 Reminders 24h+1h · 5a/5b Outcome Handlers (Completed/No-Show) · 6 Cancellation Handler · 7 Re-Engagement 30-day wait-step workaround","Defensive gating: explicit tag removal at every transition — provably one state at a time"],bugs:["UTM field mismatch: GHL hidden fields use randomized name + data-q key — script targeting name silently fails → fixed via data-q selector","No Rescheduled status: GHL has no Rescheduled → surfaces as Cancelled + new booking → routed Cancelled into recycled-nurture, booking cleanup handles surplus","No resume mid-sequence: workflows can't re-enter partway → dedicated shorter sequence 2b triggered by own tag instead of branching","Cross-page UTM: params on landing don't carry to Calendar/Confirmation → second script rewrites CTA hrefs dynamically before navigation"],outcome:"Fully tag-gated, single-platform (GHL-only) loop where booking and nurture never conflict — a lead is always in exactly one state, provably. Demonstrates automation logic as differentiator, not just page layout; the real work was gating and defensive suppression, not layout."},
 ];
 const rows=document.getElementById('rows');
 const prevKicker=document.getElementById('prevKicker');
@@ -466,15 +467,31 @@ function openDrawer(p){
   drawerKicker.textContent=(p.cat==='automation'?'Automation Build':'Funnel Build')+' — '+p.n;
   drawerZoomLevel=1;
   let media='';
+  const isLegal = p.n==="17";
+  const labels = isLegal ? ["Landing · Hero + Trust","Intake · Form + UTM capture","Calendar · Booking","Confirmation · Next steps","Nurture · Tag loop"] : ["Hero · Build the body","Problem · Random workouts","Program · 4 pillars","Proof · Testimonials","Pricing · $297","FAQ · No surprises"];
   if(p.sections && p.sections.length){
-    const secStack=p.sections.map((s,i)=>`<img src="${s}" alt="FitCoach sec ${i+1}" style="width:100%;height:auto;display:block;border-bottom:1px solid var(--line)" loading="lazy"><div style="font-family:'Fragment Mono',monospace;font-size:9px;color:var(--ink-soft);padding:6px 10px;background:var(--ground);border-bottom:1px solid var(--line)">Section ${i+1} / ${p.sections.length} — ${["Hero · Build the body","Problem · Random workouts","Program · 4 pillars","Proof · Testimonials","Pricing · $297","FAQ · No surprises"][i]||"FitCoach"}</div>`).join('');
-    media=`<div class="zoom-bar" style="position:sticky;top:0;z-index:2"><span style="flex:1">Zoom — every section stacked</span><button onclick="drawerZoom(-0.15)">−</button><span class="zoom-label" id="drawerZoomLabel">100%</span><button onclick="drawerZoom(0.15)">+</button><button onclick="openLightbox('${p.full||p.img}')" style="width:auto;padding:0 10px">⤢ Full</button></div><div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--ground);max-height:62vh;overflow:auto"><div id="drawerZoomImg" style="transition:transform .2s cubic-bezier(.16,1,.3,1);transform-origin:top center"><div class="funnel-sections">${secStack}</div><div style="padding:10px;background:white;border-top:1px solid var(--line)"><img src="${p.full||p.img}" alt="FitCoach full" style="width:100%;height:auto;display:block" loading="lazy"><div style="font-family:'Fragment Mono',monospace;font-size:9px;color:var(--ink-soft);text-align:center;margin-top:6px">Full page — scroll & zoom · Full WebP ${(328996/1024).toFixed(0)}KB vs 2MB PNG</div></div></div></div>`;
+    const secStack=p.sections.map((s,i)=>`<img src="${s}" alt="${p.title} sec ${i+1}" style="width:100%;height:auto;display:block;border-bottom:1px solid var(--line)" loading="lazy"><div style="font-family:'Fragment Mono',monospace;font-size:9px;color:var(--ink-soft);padding:6px 10px;background:var(--ground);border-bottom:1px solid var(--line)">Section ${i+1} / ${p.sections.length} — ${labels[i]||"Section "+(i+1)}</div>`).join('');
+    const fullLabel = isLegal ? `Full intake page — scroll & zoom · ${p.full? "WebP vs 3.3MB PNG":""} ` : `Full page — scroll & zoom · Full WebP ${(328996/1024).toFixed(0)}KB vs 2MB PNG`;
+    media=`<div class="zoom-bar" style="position:sticky;top:0;z-index:2"><span style="flex:1">Zoom — every section stacked</span><button onclick="drawerZoom(-0.15)">−</button><span class="zoom-label" id="drawerZoomLabel">100%</span><button onclick="drawerZoom(0.15)">+</button><button onclick="openLightbox('${p.full||p.img}')" style="width:auto;padding:0 10px">⤢ Full</button></div><div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--ground);max-height:62vh;overflow:auto"><div id="drawerZoomImg" style="transition:transform .2s cubic-bezier(.16,1,.3,1);transform-origin:top center"><div class="funnel-sections">${secStack}</div><div style="padding:10px;background:white;border-top:1px solid var(--line)"><img src="${p.full||p.img}" alt="${p.title} full" style="width:100%;height:auto;display:block" loading="lazy"><div style="font-family:'Fragment Mono',monospace;font-size:9px;color:var(--ink-soft);text-align:center;margin-top:6px">${fullLabel}</div></div></div></div>`;
   } else if(p.img){
     media=`<div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--ground);"><div class="zoom-bar"><span style="flex:1">${p.cat==='automation'?'Workflow':'Preview'}</span><button onclick="drawerZoom(-0.15)">−</button><span class="zoom-label" id="drawerZoomLabel">100%</span><button onclick="drawerZoom(0.15)">+</button><button onclick="openLightbox('${p.img}')" style="width:auto;padding:0 10px">⤢ Full</button></div><div style="max-height:62vh;overflow:auto"><img id="drawerZoomImg" src="${p.img}" alt="${p.title}" style="width:100%;height:auto;display:block" loading="lazy"></div></div>`;
   } else {
     media=`<div style="aspect-ratio:16/10;display:grid;place-items:center;font-size:32px;color:var(--ink-soft);border:1px dashed var(--line);border-radius:10px;background:var(--ground)">${p.letter}</div>`;
   }
-  drawerBody.innerHTML=`<h3 style="font-family:'Instrument Serif',serif;font-size:26px;margin:0 0 8px">${p.title}</h3><p style="color:var(--ink-soft);line-height:1.6;margin:0">${p.desc}</p><div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0">${p.stack.map(s=>`<span class="pill">${s}</span>`).join('')}</div>${media}<ul class="bullets">${p.bullets.map(b=>`<li>▸ ${b}</li>`).join('')}</ul><div style="display:flex;gap:8px;margin-top:14px"><a class="btn-p" href="#contact" onclick="closeDrawer()">Discuss this build →</a><a class="btn-g" href="https://rainier-portfolio-alchemy.lovable.app/" target="_blank">Reference ↗</a></div>`;
+  let caseStudy='';
+  if(p.problem){
+    const nicheBadge = p.niche ? `<div style="display:inline-flex;align-items:center;gap:6px;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);background:var(--amber-wash);border:1px solid var(--amber);padding:6px 10px;border-radius:999px;margin-bottom:12px">● ${p.niche} · GHL-only · No integrations</div>` : '';
+    const bugsHtml = p.bugs ? `<div style="margin-top:14px"><div style="font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px">Bugs Caught During Build — documented</div><ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px">${p.bugs.map(b=>`<li style="padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--ground);font-size:12.5px;line-height:1.5;color:var(--ink-2)"><span style="color:var(--amber);font-weight:600">▸</span> ${b}</li>`).join('')}</ul></div>` : '';
+    const buildHtml = p.build ? `<div style="margin-top:14px"><div style="font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px">Build</div><ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px">${p.build.map(b=>`<li style="padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--ground);font-size:12.5px;line-height:1.5;color:var(--ink-2)">▸ ${b}</li>`).join('')}</ul></div>` : '';
+    caseStudy = `${nicheBadge}<div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper);margin:14px 0"><div style="padding:16px;display:grid;gap:14px">
+      <div><div style="font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--terracotta, var(--amber));margin-bottom:6px">Problem</div><p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-2)">${p.problem}</p></div>
+      <div style="border-top:1px solid var(--line);padding-top:14px"><div style="font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--terracotta, var(--amber));margin-bottom:6px">Solution</div><p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-2)">${p.solution}</p></div>
+      ${buildHtml}
+      ${bugsHtml}
+      <div style="border-top:1px solid var(--line);padding-top:14px"><div style="font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--terracotta, var(--amber));margin-bottom:6px">Outcome</div><p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-2)">${p.outcome}</p></div>
+    </div></div>`;
+  }
+  drawerBody.innerHTML=`<h3 style="font-family:'Instrument Serif',serif;font-size:26px;margin:0 0 8px">${p.title}</h3><p style="color:var(--ink-soft);line-height:1.6;margin:0">${p.desc}</p><div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0">${p.stack.map(s=>`<span class="pill">${s}</span>`).join('')}</div>${media}${caseStudy}<ul class="bullets">${p.bullets.map(b=>`<li>▸ ${b}</li>`).join('')}</ul><div style="display:flex;gap:8px;margin-top:14px"><a class="btn-p" href="#contact" onclick="closeDrawer()">Discuss this build →</a><a class="btn-g" href="https://rainier-portfolio-alchemy.lovable.app/" target="_blank">Reference ↗</a></div>`;
   drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden';
 }
 function closeDrawer(){drawer.classList.remove('open');overlay.classList.remove('open');document.body.style.overflow='';}

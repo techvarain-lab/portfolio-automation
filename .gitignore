@@ -1,0 +1,14 @@
+﻿# Windows / macOS
+Thumbs.db
+.DS_Store
+Desktop.ini
+# Logs
+*.log
+npm-debug.log*
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+# OS
+ehthumbs.db

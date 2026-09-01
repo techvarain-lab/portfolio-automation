@@ -161,10 +161,13 @@ button{font:inherit}
 .preview-img{flex:1;min-height:280px;max-height:420px;background:var(--ground);border-bottom:1px solid var(--line);overflow:auto;position:relative;padding:0;display:block;scrollbar-width:thin}
 .preview-img img{width:100%;height:auto;display:block;transition:transform .2s cubic-bezier(.16,1,.3,1);transform-origin:top center;border:0;border-radius:0;image-rendering:auto}
 .preview-body{padding:14px;overflow:auto}
-.zoom-bar{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line);background:color-mix(in srgb, var(--paper) 92%, var(--ground));font-family:'Fragment Mono',monospace;font-size:10px;color:var(--ink-soft);flex-shrink:0}
-.zoom-bar button{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;cursor:pointer;font-size:12px;line-height:1}
-.zoom-bar button:hover{border-color:var(--ink);color:var(--ink)}
-.zoom-bar .zoom-label{min-width:44px;text-align:center;letter-spacing:.06em}
+.zoom-bar{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--ground);font-family:'Fragment Mono',monospace;font-size:10px;color:var(--ink);flex-shrink:0}
+.zoom-bar button{width:32px;height:28px;border-radius:999px;border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:13px;line-height:1;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06);transition:border-color .15s, background .15s, color .15s, transform .1s}
+.zoom-bar button:hover{border-color:var(--amber);color:var(--amber);background:var(--amber-wash)}
+.zoom-bar button:active{transform:scale(0.96)}
+.zoom-bar button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.zoom-bar button[style*="width:auto"]{width:auto;padding:0 12px;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.zoom-bar .zoom-label{min-width:44px;text-align:center;letter-spacing:.06em;color:var(--ink-2);font-weight:600}
 .funnel-sections{display:grid;gap:0}
 .funnel-sections img{width:100%;height:auto;display:block;border-bottom:1px solid var(--line)}
 .funnel-sections img:last-child{border:0}
@@ -172,7 +175,8 @@ button{font:inherit}
 .lightbox.open{display:grid;place-items:start center}
 .lightbox img{max-width:min(1280px,96vw);height:auto;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:white}
 .lightbox-bar{position:sticky;top:12px;z-index:81;display:flex;gap:8px;justify-content:center;margin-bottom:12px}
-.lightbox-bar button{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:white;font-family:'Fragment Mono',monospace;font-size:11px;cursor:pointer;backdrop-filter:blur(6px)}
+.lightbox-bar button{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.14);color:white;font-family:'Fragment Mono',monospace;font-size:11px;cursor:pointer;backdrop-filter:blur(6px);transition:border-color .15s, background .15s}
+.lightbox-bar button:hover{border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.22)}
 .preview-body h3{font-family:'Instrument Serif',serif;font-size:20px;line-height:1.05;margin:0 0 6px;font-weight:400;letter-spacing:-.02em}
 .preview-body p{margin:0;font-size:13px;line-height:1.6;color:var(--ink-2)}
 .bullets{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px}
